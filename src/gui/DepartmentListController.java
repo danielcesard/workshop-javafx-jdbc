@@ -30,11 +30,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Department;
-import model.services.DepartmentSevice;
+import model.services.DepartmentService;
 
 public class DepartmentListController implements Initializable, DataChangeListener {
 	
-	private DepartmentSevice service;
+	private DepartmentService service;
 
 	@FXML
 	private TableView<Department> tableViewDepartment;
@@ -63,7 +63,7 @@ public class DepartmentListController implements Initializable, DataChangeListen
 		createDialogForm(obj, "/gui/DepartmentForm.fxml", parentStage);
 	}
 	
-	public void setDepartmentService(DepartmentSevice service) {
+	public void setDepartmentService(DepartmentService service) {
 		this.service = service;
 	}
 	
@@ -98,7 +98,7 @@ public class DepartmentListController implements Initializable, DataChangeListen
 			
 			DepartmentFormController controller = loader.getController();
 			controller.setDepartment(obj);
-			controller.setDepartmentService(new DepartmentSevice());
+			controller.setDepartmentService(new DepartmentService());
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 			
@@ -111,6 +111,7 @@ public class DepartmentListController implements Initializable, DataChangeListen
 			dialogStage.showAndWait();
 		}
 		catch (IOException e) {
+			e.printStackTrace();
 			Alerts.showAlert("IO EXception", "Error loadign view", e.getMessage(), AlertType.ERROR);
 		}
 	}
